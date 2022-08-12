@@ -39,6 +39,15 @@ jobs:
  
       - name: zip files
         run: |
-             ls -r
              zip -r prereqchecker.zip PreReqChecker
              unzip -l prereqchecker.zip
+             ls -r
+             
+      - name: push zip files
+        run: |
+             git config user.email github-actions@github.com
+             git config user.name github-actions
+             git add prereqchecker.zip
+             git commit -m "zip files"
+             git push
+             
