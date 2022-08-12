@@ -28,11 +28,27 @@ import java.util.*;
 public class NeedToTake {
     public static void main(String[] args) {
 
-        if ( args.length < 3 ) {
+        if (args.length < 3) {
             StdOut.println("Execute: java NeedToTake <adjacency list INput file> <need to take INput file> <need to take OUTput file>");
             return;
         }
 
-	// WRITE YOUR CODE HERE
+		HashMap<String, HashSet<String>> courses = AdjList.populateGraph(args[0]);
+
+		StdIn.setFile(args[1]);
+		String target = StdIn.readLine();
+		HashSet<String> taken = Eligible.readToHashSet(args[1], true);
+		HashSet<String> flat = Eligible.convertToFlat(taken, courses);
+
+		HashSet<String> totalNeedToTake = new HashSet<String>();
+		totalNeedToTake.add(target);
+		totalNeedToTake = Eligible.convertToFlat(totalNeedToTake, courses);
+
+		HashSet<String> needToTake = new HashSet<String>();
+		for(String course : totalNeedToTake) {
+			boolean takeable = !flat.contains(course) && !course.equals(target);
+			if(takeable) needToTake.add(course);
+		}
+		Eligible.writeFromHashSet(needToTake, args[2]);
     }
 }

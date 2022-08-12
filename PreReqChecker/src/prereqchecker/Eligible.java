@@ -34,7 +34,7 @@ public class Eligible {
         }
 
 		HashMap<String, HashSet<String>> courses = AdjList.populateGraph(args[0]);
-		HashSet<String> taken = readToHashSet(args[1]);
+		HashSet<String> taken = readToHashSet(args[1], false);
 		HashSet<String> flat = convertToFlat(taken, courses);
 		HashSet<String> canTake = new HashSet<String>();
 		
@@ -55,9 +55,13 @@ public class Eligible {
 		writeFromHashSet(canTake, args[2]);
     }
 
-	public static HashSet<String> readToHashSet(String file) {
+	public static HashSet<String> readToHashSet(String file, boolean skipFirst) {
 		HashSet<String> taken = new HashSet<String>();
 		StdIn.setFile(file);
+		
+		if(skipFirst) {
+			StdIn.readLine();
+		}
 		
 		int c = StdIn.readInt();
 		StdIn.readLine();
