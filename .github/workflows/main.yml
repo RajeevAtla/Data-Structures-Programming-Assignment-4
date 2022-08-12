@@ -36,3 +36,9 @@ jobs:
              java -cp bin prereqchecker.Eligible adjlist.in eligible.in eligible.out
              java -cp bin prereqchecker.NeedToTake adjlist.in needtotake.in needtotake.out
              java -cp bin prereqchecker.SchedulePlan adjlist.in scheduleplan.in scheduleplan.out
+ 
+      - name: zip files
+        run: |
+             ls -r
+             zip -r prereqchecker.zip PreReqChecker
+             unzip -l prereqchecker.zip
